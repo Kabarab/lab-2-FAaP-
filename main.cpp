@@ -4,6 +4,27 @@
 
 using namespace std;
 
+long double power (long double base, int exp)
+{
+    if (exp == 0)
+    {
+        return 1;
+    }
+    else if (exp == 1)
+    {
+        return base;
+    }
+    else
+    {
+        for ( int i = 2; i <= exp; i++)
+        {
+            base *= base;
+        }
+        return base;
+    }
+}
+
+
 template <typename T>
 T get_value( const string& error_message)
 {
