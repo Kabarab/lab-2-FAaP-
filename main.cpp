@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <limits>
 
 using namespace std;
 
@@ -26,17 +25,27 @@ long double power (long double base, int exp)
 
 
 template <typename T>
-T get_value( const string& error_message)
+T get_value(const string& error_message)
 {
     T value;
-    while (!(cin >> value))
+    do
     {
+        if (cin >> value)
+        {
+            break;
+        }
+
         cout << error_message << "\n";
         cout << "Введите значение снова: ";
+
         cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        cin.ignore(99999999, '\n');
+
+    } while (true);
+
+    cin.ignore(99999999, '\n');
+
     return value;
 }
 
@@ -105,7 +114,7 @@ int main()
     const double x_sq = x * x;
     const double x_cub = x * x * x;
     double y;
-    y = 2 * a * pow(cos(x_sq), 2) + pow(sin(x_cub), 2) - b * phi;
+    y = 2 * a * power(cos(x_sq), 2) + power(sin(x_cub), 2) - b * phi;
     cout << "Итоговый результат y = " << y << '\n';
 
     return 0;
