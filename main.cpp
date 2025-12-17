@@ -25,28 +25,47 @@ long double power (long double base, int exp)
 
 
 template <typename T>
-T get_value(const string& error_message)
+T get_value(const char* error_message)
 {
     T value;
+    bool isValid;
+
     do
     {
-        if (cin >> value)
+        isValid = true;
+
+        //пытаемся считать само число
+        if (!(cin >> value))
         {
-            break;
+            isValid = false;
+            cin.clear(); // сбрасываем флаг ошибки ввода
+            cin.ignore(999999999, '\n'); // очищаем буфер до Enter
+        }
+        else
+        {
+            // число считалось, но нужно проверить хвост строки
+
+            char c;
+            // считываем символы по одному, пока не дойдем до конца строки (Enter / '\n')
+            while (cin.get(c) && c != '\n')
+            {
+                // если встретили что-то кроме пробела, значит это мусор
+                if (!isspace(c))
+                {
+                    isValid = false;
+                }
+            }
         }
 
-        cout << error_message << "\n";
+        if (isValid)
+        {
+            return value;
+        }
+
+        cout << error_message;
         cout << "Введите значение снова: ";
 
-        cin.clear();
-
-        cin.ignore(99999999, '\n');
-
     } while (true);
-
-    cin.ignore(99999999, '\n');
-
-    return value;
 }
 
 int main()
