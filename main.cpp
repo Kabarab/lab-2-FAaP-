@@ -23,7 +23,7 @@ long double power (long double base, int exp)
     }
 }
 
-
+//шаблон функции чтоб ее можно было использовать с разными типами данных
 template <typename T>
 T get_value(const char* error_message)
 {
@@ -39,17 +39,17 @@ T get_value(const char* error_message)
         {
             isValid = false;
             cin.clear(); // сбрасываем флаг ошибки ввода
-            cin.ignore(999999999, '\n'); // очищаем буфер до Enter
+            cin.ignore(99999, '\n'); // очищаем буфер до Enter
         }
         else
         {
             // число считалось, но нужно проверить хвост строки
 
             char c;
-            // считываем символы по одному, пока не дойдем до конца строки (Enter / '\n')
+            // считываем символы по одному пока не дойдем до конца строки (Enter / '\n')
             while (cin.get(c) && c != '\n')
             {
-                // если встретили что-то кроме пробела, значит это мусор
+                // если встретили что-то кроме пробела значит это мусор
                 if (!isspace(c))
                 {
                     isValid = false;
